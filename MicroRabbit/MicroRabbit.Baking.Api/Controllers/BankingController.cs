@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MicroRabbit.Baking.Application.Interfaces;
+using MicroRabbit.Baking.Application.Models;
 using MicroRabbit.Baking.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,13 @@ namespace MicroRabbit.Baking.Api.Controllers
         public ActionResult<IEnumerable<Account>> Get()
         {
             return Ok(_accountService.GetAccounts());
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] AccountTransfer accountTransfer)
+        {
+            _accountService.Transfer(accountTransfer);
+            return Ok(accountTransfer);
         }
     }
 }
