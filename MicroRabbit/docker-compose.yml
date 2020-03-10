@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  microrabbit.mvc:
+    image: ${DOCKER_REGISTRY-}microrabbitmvc
+    build:
+      context: .
+      dockerfile: MicroRabbit.MVC/Dockerfile

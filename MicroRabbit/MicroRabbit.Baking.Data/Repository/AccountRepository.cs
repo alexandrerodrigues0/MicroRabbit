@@ -15,9 +15,20 @@ namespace MicroRabbit.Baking.Data.Repository
             _ctx = ctx;
         }
 
+        public Account GetAccount(int id)
+        {
+            return _ctx.Accounts.Find(id);
+        }
+
         public IEnumerable<Account> GetAccounts()
         {
             return _ctx.Accounts;
+        }
+
+        public void Update(Account account)
+        {
+            _ctx.Update(account);
+            _ctx.SaveChanges();
         }
     }
 }

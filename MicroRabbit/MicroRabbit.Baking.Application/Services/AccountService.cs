@@ -19,13 +19,33 @@ namespace MicroRabbit.Baking.Application.Services
             _bus = bus;
         }
 
+        public Account GetAccount(int id)
+        {
+            return _accountRepository.GetAccount(id);
+        }
+
         public IEnumerable<Account> GetAccounts()
         {
             return _accountRepository.GetAccounts();
         }
 
+        public void Update(Account account)
+        {
+            _accountRepository.Update(account);
+        }
+
         public void Transfer(AccountTransfer accountTransfer)
         {
+            var accountFrom = GetAccount(accountTransfer.FromAccount);
+            accountFrom.AccountBalance -= accountTransfer.TransferAmount;
+
+            Update(accountFrom);
+
+            var accountTo = GetAccount(accountTransfer.ToAccount);
+            accountTo.AccountBalance += accountTransfer.TransferAmount;
+
+            Update(accountTo);
+
             var createTransferCommand = new CreateTransferCommand(
                 accountTransfer.FromAccount,
                 accountTransfer.ToAccount,

@@ -6,7 +6,11 @@ namespace MicroRabbit.Baking.Application.Interfaces
 {
     public interface IAccountService
     {
+        Account GetAccount(int id);
+
         IEnumerable<Account> GetAccounts();
+
+        void Update(Account account);
 
         void Transfer(AccountTransfer accountTransfer);
     }
